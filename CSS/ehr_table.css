@@ -1,0 +1,20 @@
+.glyphicon-refresh-animate {
+	-webkit-animation: cssAnimation 0.982s 20 linear;
+	-moz-animation: cssAnimation 0.982s 20 linear;
+	-o-animation: cssAnimation 0.982s 20 linear;
+}
+
+@-webkit-keyframes cssAnimation {
+	from { -webkit-transform: rotate(0deg) scale(0.802) skew(1deg) translate(0px); }
+	to { -webkit-transform: rotate(360deg) scale(0.802) skew(1deg) translate(0px); }
+}
+
+@-moz-keyframes cssAnimation {
+	from { -moz-transform: rotate(0deg) scale(0.802) skew(1deg) translate(0px); }
+	to { -moz-transform: rotate(360deg) scale(0.802) skew(1deg) translate(0px); }
+}
+
+@-o-keyframes cssAnimation {
+	from { -o-transform: rotate(0deg) scale(0.802) skew(1deg) translate(0px); }
+	to { -o-transform: rotate(360deg) scale(0.802) skew(1deg) translate(0px); }
+}

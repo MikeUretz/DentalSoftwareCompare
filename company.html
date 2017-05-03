@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Dental Software and Dental EHR Vendors</title>
+<meta name='description' content='Dental Software Company Profiles. Provides a way to compare the differences between Dental EHR Groups'>
+<meta name="keywords" content="Dental Software, Dental Companies, Dental EHR, EDR, Electronic Health Records, Comparison, Selection, Evaluation, Paperless Office Dental">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<link href='https://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/s/bs-3.3.5/jq-2.1.4,dt-1.10.10,b-1.1.0,b-colvis-1.1.0,fc-3.2.0,fh-3.1.0,r-2.0.0,sc-1.4.0/datatables.min.css"/>
+<link href="CSS/ehr_company.css" rel="stylesheet" type="text/css">
+<link href="CSS/temporarySponsors.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="https://cdn.datatables.net/s/bs-3.3.5/jq-2.1.4,dt-1.10.10,b-1.1.0,b-colvis-1.1.0,fc-3.2.0,fh-3.1.0,r-2.0.0,sc-1.4.0/datatables.min.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <!-- Bootstrap nav bar -->
+    <div class="navBar">
+      <nav class="navbar navbar-default" id="header">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+            <a href="/index.html"><div class="navbar-brand" id="homeLogo"></div></a></div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="defaultNavbar1">
+            <ul class="nav navbar-nav">
+              <li><a href="/consulting.html">CONSULTING SERVICES</a></li>
+              <li ><a href="/table.html">VENDOR COMPARISON TOOL</a></li>
+              <li><a href="/company.html" id="thisPageActive">VENDOR PROFILES</a></li>
+              <li><a target="_blank" href="http://www.dentalsoftwareadvisor.com/">DENTALSOFTWAREADVISOR.COM</a></li>
+            </ul>
+          </div>
+          <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+      </nav>
+    </div>
+    <!-- Start of main page content -->
+    <div class="colWrap">
+    	<!-- Search panel, with toggling nav pills -->
+   	  <div class="leftPanel">
+        	<ul id="companyPills" class="nav nav-pills nav-stacked">
+          </ul>
+      </div>
+        <!-- Company profile tabs -->
+        <div id="mainCompanyContent" class="rightTable">
+          <!-- Company contact information, dummy data is supplemented at this time (pulled from website) -->
+		    </div>
+   </div>
+</div>
+<!-- Floats are cleared in case of the implementation of a footer -->
+<div class="clearIt"></div>
+<footer class="footer">
+  	<div id="footerContent"><p><a href="/index.html">Home</a> | <a href="/table.html">Vendor Comparison Tool</a> | <a href="/company.html">Vendor Profiles</a> | <a href="/consulting.html">Consulting Services</a> | <a href="/aboutMikeUretz.html">About Mike Uretz</a> | <a target="_blank" href="http://www.dentalsoftwareadvisor.com/">DSA.com</a></p>
+    <p><a href="/contact.html"><b>Contact Us</b></a></p>
+    &copy; Copyright EHR Media Group
+    </div>
+  </footer>
+<script src="Javascript/ehr_company.js"></script>
+<script>
+$(".myModal").on('hidden.bs.modal', function (e) {
+    $(".myModal iframe").attr("src", $(".myModal iframe").attr("src"));
+});
+</script>
+</body>
+</html>

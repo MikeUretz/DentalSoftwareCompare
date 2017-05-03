@@ -1,0 +1,113 @@
+@charset "utf-8";
+#mainContent {
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	font-family: 'Karla', sans-serif;
+	margin-top: 30px;
+}
+#video {
+	margin-left: auto;
+	margin-right: auto;
+	width: 45%;
+}
+.videos {
+	margin-top: 30px;
+}
+
+
+#generalInfo {
+	margin-bottom: 21px;
+	text-align: justify;
+	margin-top: 25px;
+}
+#generalInfo iframe {
+	width: 84%;
+}
+
+#generalInfoPDDS {
+	margin-bottom: 54px;
+	margin-top: 30px;
+}
+
+#planetDDSblurb {
+	margin-top: 31px;
+}
+
+#logo {
+	float: left;
+	padding-right: 0px;
+	margin-right: 11px;
+	margin-bottom: 8px;
+}
+.glyphicon.glyphicon-triangle-bottom  {
+	padding-left: 10px;
+	font-size: 22px;
+}
+.glyphicon.glyphicon-triangle-top  {
+	padding-left: 10px;
+	font-size: 22px;
+}
+
+.well {
+	border-top: thick solid #E21E2F;
+	background-color: #FFFFFF;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+#wells {
+	margin-top: 5px;
+}
+
+#companyBold {
+	font-size: large;
+	color: #3C557C;
+	font-weight: bold;
+}
+#incentiveMac {
+	max-width: 400px;
+	max-height: 256px;
+
+}
+.links {
+	color: #E21E2F;
+	text-decoration: underline;
+
+}
+.links:hover {
+	color: #3C557C;
+}
+
+@media (max-width: 1055px){
+#generalInfo {
+	margin-top: -498px;
+}
+.well {
+
+
+}
+#wells {
+	margin-top: -494px;
+}
+.videos {
+	margin-top: -491px;
+
+}
+#generalInfoPDDS {
+	margin-top: -498px;
+}
+
+
+
+
+
+
+
+}
+
+@media (max-width: 991px){
+#wells {
+	margin-top: 0px;
+}
+
+}

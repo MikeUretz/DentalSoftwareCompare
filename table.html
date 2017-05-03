@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Dental Software and Dental EHR Vendor Comparisons</title>
+<meta name="description" content='Free online Dental Software and Dental EHR Vendor Comparison Tool helps group and practices research and evaluate' >
+<meta name="keywords" content="Dental Software, Dental EHR, EDR, Electronic Health Records, Comparison, Selection, Evaluation, Features, Paperless Office Dental">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/s/bs-3.3.5/jq-2.1.4,dt-1.10.10,b-1.1.0,b-colvis-1.1.0,fc-3.2.0,fh-3.1.0,r-2.0.0,sc-1.4.0/datatables.min.css"/>
+<link href='https://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="CSS/bootstrap-dialog.css">
+<link rel="stylesheet" href="CSS/ehr_table.css">
+<link href="CSS/ehr_table12.3.16.css" rel="stylesheet" type="text/css">
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+<script type="text/javascript" src="https://cdn.datatables.net/s/bs-3.3.5/jq-2.1.4,dt-1.10.10,b-1.1.0,b-colvis-1.1.0,fc-3.2.0,fh-3.1.0,r-2.0.0,sc-1.4.0/datatables.min.js"></script>
+<script src="Javascript/bootstrap-tour.min.js"></script>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="container">
+    <div class="navBar">
+      <nav class="navbar navbar-default" id="header">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+            <a href="/index.html"><div class="navbar-brand" id="logo"></div></a></div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="defaultNavbar1">
+            <ul class="nav navbar-nav">
+              <li><a id="consulting" href="/consulting.html">CONSULTING SERVICES</a></li>
+              <li id="thisPageActive"><a href="/table.html">VENDOR COMPARISON TOOL</a></li>
+              <li><a href="/company.html">VENDOR PROFILES</a></li>
+              <li><a target="_blank" href="http://www.dentalsoftwareadvisor.com/">DENTALSOFTWAREADVISOR.COM</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            	<li class="dropdown">
+          			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-question-sign" id="tutorial"></span> Tutorial</a>
+                      <ul class="dropdown-menu" style="background-color:#3E5672;">
+                        <li style="cursor:pointer;"><a onclick="tour.restart()" class="dropDownOption"><span class="glyphicon glyphicon-comment"></span> Click-Through Tutorial</a></li>
+                        <li><a href="#" onclick="startTutorial()" class="dropDownOption"><span class="glyphicon glyphicon-facetime-video"></span> Video Tutorial</a></li>
+                      </ul>
+        		</li>
+            </ul>
+          </div>
+          <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+      </nav>
+    </div>
+<div class="colWrap">
+      <div class="row row-centered">
+        	<div class="leftPanel">
+                  
+                <!-- Main selector button for companies. Search items are within dropdown menu -->
+                <div class="resetButtons">
+                	<div id="clearButton" class="reClearButton" onClick="resetTable()"><span class="glyphicon glyphicon-refresh"></span> Refresh Table</div>
+                    <a href="#" data-toggle="modal" data-target="#shareLayout" id="shareBtn"><div class="reClearButton" onClick="fillShareModal()"><span class="glyphicon glyphicon-share-alt"></span> Share Your Results</div></a>
+                    <div class="blueBackground reClearButton" onClick="groupFilter(2,10000)"><span class=""></span> 2-10 Small Group</div>
+                    <div class="blueBackground reClearButton" onClick="groupFilter(10,10000)"><span class=""></span> 10-50 Mid-Sized Group</div>
+                    <div class="blueBackground reClearButton" onClick="groupFilter(50,10000)"><span class=""></span> 50+ DSO / Large Group</div>
+                    
+                    	<!-- Share layout modal -->
+                        <div id="shareLayout" class="modal fade myModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  							<div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4 class="modal-title">Share the Table</h4>
+                              </div>
+                              <div id="shareModal" class="modal-body">
+                                
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+
+                  </div>
+                </div>
+              </div>
+                <div id="searchPanel">
+                <div class="panelButtons">
+                    <div class="buttonContainer">
+                        <div class="searchBy"><span class="buttonTxt">Search by Company</span></div>
+                        <div class="dropDownButton" id="searchCompany">
+                            <a id="mytest1"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
+                        </div>
+                    </div>
+                    <div class="clearIt"></div>
+                    <!-- Hidden sliding panel with company search options -->
+                    <div class="searchPanelCompany">
+                        <!-- Check box buttons here -->
+                        <div class="companies" id="companyList">
+                            <p class="loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading Data, Please Wait</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearIt"></div>
+                <!-- Main selector for categories. Search items are within dropdown menu -->         
+                <div class="panelButtons">
+                    <div class="buttonContainer">
+                        <div class="searchBy"><span class="buttonTxt">Search by Category</span></div>
+                        <div class="dropDownButton" id="searchCategory">
+                            <a id="mytest2"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
+                        </div>
+                    </div>
+                    <div class="clearIt"></div>
+                    <!-- Hidden sliding panel with category search options -->
+                    
+                        <!-- Check box buttons here -->
+                        <div class="categories" id="categoryList">
+                            <p class="loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading Data, Please Wait</p>
+                        </div>
+
+                </div>
+
+                <!-- New feature only search section -->
+                <div class="panelButtons">
+                    <div class="buttonContainer">
+                        <div class="searchBy"><span class="buttonTxt">Search by Feature</span></div>
+                        <div class="dropDownButton" id="searchFeaturesOnly">
+                            <a id="mytest3"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
+                        </div>
+                    </div>
+                    <div class="clearIt"></div>
+                    <!-- Hidden sliding panel with feature search options -->
+                    <div class="searchPanelFeaturesOnly" id="featureList">
+                    </div>
+                </div>
+				</div>
+            </div>
+                    
+                    <div id="rightTable">
+           			  <div class="col-lg-16 col-centered" >
+                      	<div id="tableLegend">Drop down menu: <span class="glyphicon glyphicon-triangle-bottom"></span> | Add item to table: <span class="glyphicon glyphicon-plus-sign"></span> | Remove item from table: <span class="glyphicon glyphicon-minus-sign"></span> | View a specific item within table: <span class="glyphicon glyphicon-zoom-in"></span> | View more information: <span class="glyphicon glyphicon-info-sign"></span></div>
+                				<p class="loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading Table Data, Please Wait</p>
+                				<table id="ehrTable" class="table table-bordered table-hover" cellspacing="0" width="100%">
+                			        <thead id="ehrTableHead" style="font-size: 75%">
+                			        </thead>
+                			    	<tbody id="ehrTableBody" style="font-size: 75%">
+                			    	</tbody>
+                			    </table>
+           			  </div>
+                    </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+  	<div id="footerContent"><p><a href="/index.html">Home</a> | <a href="/table.html">Vendor Comparison Tool</a> | <a href="/company.html">Vendor Profiles</a> | <a href="/consulting.html">Consulting Services</a> | <a href="/aboutMikeUretz.html">About Mike Uretz</a> | <a target="_blank" href="http://www.dentalsoftwareadvisor.com/">DSA.com</a></p>
+    <p><a href="/contact.html"><b>Contact Us</b></a></p>
+    &copy; Copyright EHR Media Group
+    </div>
+  </footer>
+<script src="Javascript/ehr_table_users.js"></script>
+<script src="Javascript/bootstrap-dialog.js"></script>
+<script src="Javascript/ehr_table_tutorial.js"></script>
+<script src="Javascript/ehr_table_Test.js"></script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dental Software Compare Product Updater</title>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jqc-1.12.3/dt-1.10.12/b-1.2.1/kt-2.1.2/se-1.2.0/datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="css/editor.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
+    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/v/dt/jqc-1.12.3/dt-1.10.12/b-1.2.1/kt-2.1.2/se-1.2.0/datatables.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/dataTables.editor.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- main javascript -->
+    <script src="js/DSCPU.js"></script>
+
+    <!-- Custom CSS -->
+    <link href="css/DSCPU.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand">Dental Software Compare Product Updater</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#" onclick="changeView('home')">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+        <!-- Home -->
+        <div class="row" id="home">
+            <div class="col-lg-12 text-center">
+                <h1>Welcome to the Dental Software Compare Product Updater</h1>
+                <p>Please enter your company code below and hit enter to access your products data on Dental Software Compare</p>
+                <div class="form-group">
+                    <label class="inputDesc" for="cCode">Company Code:</label><span id="cCodeError" style="color:red;"></span>
+                    <input type="text" class="form-control" id="cCode">
+                </div>
+                <button type="button" id="cCodeBtn" class="btn btn-primary" onclick="submitCode()">Enter</button>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Product / Company overview -->
+        <div class="row" id="overview">
+            <div class="col-lg-12 text-center" id="overviewContainer">
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Company info -->
+        <div class="row" id="companyEdit">
+            <div class="col-lg-12 text-center">
+                <h1 id="companyPageName">Company Update Page</h1>
+                <span>Click the edit button at the top right of the table to edit your company's information.</span>
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="company" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Background</th>
+                            <th>Address</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Zip</th>
+                            <th>Phone</th>
+                            <th>Web Address</th>
+                            <th>Custom Link</th>
+                        </tr>
+                    </thead>
+                </table>
+                <button type="button" id="overviewBtn" class="btn btn-primary" onclick="changeView('overview')">Back</button>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Product info -->
+        <div class="row" id="productEdit">
+            <div class="col-lg-12 text-center">
+                <div class="textNextBtn"><span id="productPageName">Product Update Page</span><button type="button" class="btn btn-lg btn-primary" data-toggle="popover" title="Popover title" data-content="The 'Feature Implementation' and 'Feature Notes' columns of the two tables below are editable.Click on the rows to begin editing the values, hit the Submit button to save changes. The first table contains Yes/No features and the second table contains short answer features.">Instructions</button></div>
+
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="product_feature_view_basic" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Product id</th>
+                            <th>Category Title</th>
+                            <th>Feature Name</th>
+                            <th>Feature Implementation</th>
+                            <th>Feature Notes</th>
+                        </tr>
+                    </thead>
+                </table>
+
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="product_feature_view_shortanswer" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Product id</th>
+                            <th>Category Title</th>
+                            <th>Feature Name</th>
+                            <th>Feature Implementation</th>
+                            <th>Feature Notes</th>
+                        </tr>
+                    </thead>
+                </table>
+                
+                <button type="button" id="overviewBtn" class="btn btn-primary" onclick="changeView('overview')">Back</button>
+            </div>
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+    <script type="text/javascript">
+    $(document).ready(function() {
+        // Initalize editors
+        buildBasicProductEditor();
+        buildShortanswerProductEditor();
+        buildCompanyEditor();
+
+        $(function () {
+          $('[data-toggle="popover"]').popover()
+        });
+
+        $('html').on('click', function(e) {
+          if (typeof $(e.target).data('original-title') == 'undefined' &&
+             !$(e.target).parents().is('.popover.in')) {
+            $('[data-original-title]').popover('hide');
+          }
+        });
+    });
+    </script>
+
+</body>
+
+</html>

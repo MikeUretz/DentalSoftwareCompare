@@ -1,0 +1,148 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*General information, will be used on all custom company profiles. Clear for floats, and styling for clickable tabs themselves*/
+
+#tabHeaders a {
+	font-family: 'Karla', sans-serif;
+	color: #00182E;
+	font-size: medium;
+}
+
+.clearIt {
+	clear: left;
+}
+
+
+#logoMacPrac {
+	float: left;
+	margin-right: 13px;
+}
+#meetUsBlurbMacPrac {
+	margin-top: 19px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 90%;
+}
+#meetUsBlurbMacPrac p {
+	margin-bottom: 24px;
+}
+
+
+#coInfoMacPrac {
+	margin-left: 6px;
+	margin-right: 6px;
+	border-top: medium solid #0C6BA1;
+	border-bottom: medium solid #0C6BA1;
+	margin-top: 11px;
+}
+
+#coInfoMacPrac a {
+	font-family: 'Karla', sans-serif;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+#coInfoMacPrac:hover {
+	color: #00182E;
+}
+
+#companyBoldMacPrac {
+	font-size: x-large;
+	font-weight: normal;
+	color: #00182E;
+}
+
+#clientTestimonialsMacPrac {
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	margin-top: 19px;
+}
+
+#clientTestVidMacPrac {
+	float: right;
+	margin-top: 8px;
+	margin-left: 15px;
+}
+
+#clientTestimonialsMacPrac .row p {
+	text-align: justify;
+}
+
+
+#currentNewsVideo p {
+	text-align: center;
+}
+
+#clientTestList {
+	padding-top: 6px;
+}
+
+#otherLinksMacPrac {
+	margin-left: 6px;
+	margin-right: 6px;
+	border-top: medium solid #0C6BA1;
+	border-bottom: medium solid #0C6BA1;
+
+}
+
+.linksMacPrac a {
+	font-family: 'Karla', sans-serif;
+	text-decoration: none;
+}
+
+linksMacPrac a:hover {
+	color: #00182E;
+	text-decoration: none;
+}
+
+
+#currentNewsMacPrac {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 19px;
+	width: 90%;
+}
+
+.boldNewsMacPrac {
+	font-family: 'Karla', sans-serif;
+	font-size: large;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.boldNewsMacPrac:hover {
+	text-decoration: none;
+	color: #00182E;
+}
+
+#coInfoMacPrac {
+	margin-left: 6px;
+	margin-right: 6px;
+	border-top: medium solid #0C6BA1;
+	border-bottom: medium solid #0C6BA1;
+
+}
+
+#webinarsMacPrac {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 19px;
+	width: 85%;
+}
+
+#mainWebinarMacPrac {
+	text-align: center;
+}
+
+#suppContentMacPrac {
+	text-align: justify;
+}
+
+#videosMainMacPrac {
+	margin-left: auto;
+	margin-right: auto;
+	width: 85%;
+	margin-top: 19px;
+}

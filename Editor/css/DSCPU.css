@@ -1,0 +1,55 @@
+body {
+    padding-top: 70px;
+}
+#home {
+	display: block;
+}
+
+#overview {
+	display: none;
+}
+
+#companyEdit {
+	display: none;
+}
+
+#productEdit {
+	display: none;
+}
+
+.boldCol {
+	font-weight: bold;
+}
+
+tr {
+	text-align: left;
+}
+
+.textNextBtn {
+	padding-top: 2em;
+}
+span {
+	padding-right: 1em;
+	font-size: 20px;
+}
+.smallTopPadding {
+	margin-top: 1em;
+}
+.inputDesc {
+	float: left;
+}
+/*
+BOOTSTRAP OVERRIDES
+*/
+.navbar-inverse {
+    background-color: #3E5672;
+    border-color: #3E5672;
+}
+.navbar-inverse .navbar-brand {
+    color: #fff;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #3E5672;
+    border-color: #2e6da4;
+}
