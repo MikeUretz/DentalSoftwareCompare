@@ -13,12 +13,12 @@ function submitCode(){
 	// Retrieve company code from input
 	var codeInput = $('#cCode').val();
 	// Call API to find company with that code
-	$.getJSON("http://ec2-54-201-29-242.us-west-2.compute.amazonaws.com:80/rest/ehr/company?ids=" + codeInput + "&id_field=company_code&app_name=ehrSelect", function(json){
+	$.getJSON("http://ec2-54-201-29-242.us-west-2.compute.amazonaws.com:80/rest/ehrdev/company?ids=" + codeInput + "&id_field=company_code&app_name=ehrSelect", function(json){
 		companyJSON = json;
 		// Set company ID
 		company_id = companyJSON.record[0].id;
 		// Use company ID to find all of the company's products ids
-		$.getJSON("http://ec2-54-201-29-242.us-west-2.compute.amazonaws.com:80/rest/ehr/product?filter=company_id%3D" + company_id + "&app_name=ehrSelect", function(json){
+		$.getJSON("http://ec2-54-201-29-242.us-west-2.compute.amazonaws.com:80/rest/ehrdev/product?filter=company_id%3D" + company_id + "&app_name=ehrSelect", function(json){
 			productJSON = json;
 			// Create overview of products page
 			createOverview(companyJSON, productJSON);
@@ -71,43 +71,16 @@ var companyEditor;
 var basicProductTable;
 var shortanswerProductTable;
 var companyTable;
-
-// Builds editor for product table with Yes No N/A answers
-function buildBasicProductEditor(){
-	basicProductEditor = new $.fn.dataTable.Editor( {
-		ajax: 'php/table.product_feature_view_basic.php',
-		table: '#product_feature_view_basic',
-		fields: [
-			{
-				"label": "Feature Implementation:",
-				"name": "prod_feature_desc",
-				"type": "select",
-				"options": [
-					"   ",
-					"Yes",
-					"No",
-					"N\/A"
-				]
-			},
-			{
-				"label": "Feature Notes:",
-				"name": "prod_feature_notes"
-			}
-		]
-	} );
-
-	// Activate an inline edit on click of a table cell
-    $('#product_feature_view_basic').on( 'click', 'tbody td:not(:first-child)', function (e) {
-        basicProductEditor.inline( this, {
-        	buttons: { label: 'Submit', fn: function () { this.submit(); } }
-        } );
-    } );
-}
+var basicProductData = {};
+var shortanswerProductData = {};
+var basicProductOutput = new FormData();
+basicProductOutput.append('action', 'edit');
+var shortanswerProductOutput = new FormData();
+shortanswerProductOutput.append('action', 'edit');
 
 // Builds editor for product table with short answers
 function buildShortanswerProductEditor(){
  	shortanswerProductEditor = new $.fn.dataTable.Editor( {
-		ajax: 'php/table.product_feature_view_shortanswer.php',
 		table: '#product_feature_view_shortanswer',
 		fields: [
 			{
@@ -118,13 +91,50 @@ function buildShortanswerProductEditor(){
 				"label": "Feature Notes:",
 				"name": "prod_feature_notes"
 			}
-		]
+		],
+        ajax: function ( method, url, d, successCallback, errorCallback ) {
+            var output = { data: [] };
+ 
+            if ( d.action === 'create' ) {
+                // Create new row(s), using the current time and loop index as
+                // the row id
+                var dateKey = +new Date();
+ 
+                $.each( d.data, function (key, value) {
+                    var id = dateKey+''+key;
+ 
+                    value.DT_RowId = id;
+                    shortanswerProductData[ id ] = value;
+                    output.data.push( value );
+                } );
+            }
+            else if ( d.action === 'edit' ) {
+                // Update each edited item with the data submitted
+                $.each( d.data, function (id, value) {
+                    shortanswerProductOutput.append("data["+id+"]["+Object.keys(value)[0]+"]", value[Object.keys(value)[0]]);
+                    value.DT_RowId = id;
+                    $.extend( shortanswerProductData[ id ], value );
+                    output.data.push( shortanswerProductData[ id ] );
+                } );
+            }
+            else if ( d.action === 'remove' ) {
+                // Remove items from the object
+                $.each( d.data, function (id) {
+                    delete shortanswerProductData[ id ];
+                } );
+            }
+ 
+            // Store the latest `todo` object for next reload
+            //localStorage.setItem( 'todo', JSON.stringify(todo) );
+            // Show Editor what has changed
+            successCallback( output );
+        }
 	} );
 
 	// Activate an inline edit on click of a table cell
     $('#product_feature_view_shortanswer').on( 'click', 'tbody td:not(:first-child)', function (e) {
         shortanswerProductEditor.inline( this, {
-        	buttons: { label: 'Submit', fn: function () { this.submit(); } }
+        	onBlur: 'submit'
         } );
     } );
 }
@@ -176,86 +186,154 @@ function buildCompanyEditor() {
 	} );
 }
 
-// Builds Product table for Yes No and N/A answers
-function buildBasicProductTable(product_id){
-	basicProductTable = $('#product_feature_view_basic').DataTable( {
-		dom: 'frtip',
-		ajax: {
-		    type : "POST",
-		    url : 'php/table.product_feature_view_basic.php',
-		    dataSrc : function (json) {
-		      var return_data = new Array();
-		      for(var i=0;i< json.data.length; i++){
-		      		if(json.data[i].product_id == product_id){
-						return_data.push(json.data[i]);
-		      		}
-		      }
-		      return return_data;
-		    }
-		},
-		columns: [
+// Builds editor for product table with Yes No N/A answers
+function buildBasicProductEditor(){
+	basicProductEditor = new $.fn.dataTable.Editor( {
+		table: '#product_feature_view_basic',
+		fields: [
 			{
-				"data": "product_id"
+				"label": "Feature Implementation:",
+				"name": "prod_feature_desc",
+				"type": "select",
+				"options": [
+					"   ",
+					"Yes",
+					"No",
+					"N\/A"
+				]
 			},
 			{
-				"data": "category_title"
-			},
-			{
-				"data": "feature_name"
-			},
-			{
-				"data": "prod_feature_desc"
-			},
-			{
-				"data": "prod_feature_notes"
+				"label": "Feature Notes:",
+				"name": "prod_feature_notes"
 			}
 		],
-		columnDefs: [
-            {
-               "targets": [ 0 ],
-               "visible": false
-            },
-            {  
-              "targets": [ 1, 2 ],
-              "width": '20%'
-          	},
-          	{
-          	  "targets": [ 3 ],
-          	  "width": '20%'
-          	},
-          	{ 
-          		"className": "boldCol", "targets": [ 1, 2 ] 
-          	}
-        ],
-        order: [[ 1, "asc" ]],
-        scrollY: "400px",
-        scrollCollapse: true,
-        paging: false,
-        info: false,
-        select: {
-            style:    'os',
-            selector: 'td:first-child'
+        ajax: function ( method, url, d, successCallback, errorCallback ) {
+            var output = { data: [] };
+ 
+            if ( d.action === 'create' ) {
+                // Create new row(s), using the current time and loop index as
+                // the row id
+                var dateKey = +new Date();
+ 
+                $.each( d.data, function (key, value) {
+                    var id = dateKey+''+key;
+ 
+                    value.DT_RowId = id;
+                    basicProductData[ id ] = value;
+                    output.data.push( value );
+                } );
+            }
+            else if ( d.action === 'edit' ) {
+                // Update each edited item with the data submitted
+                $.each( d.data, function (id, value) {
+                    basicProductOutput.append("data["+id+"]["+Object.keys(value)[0]+"]", value[Object.keys(value)[0]]);
+                    value.DT_RowId = id;
+                    $.extend( basicProductData[ id ], value );
+                    output.data.push( basicProductData[ id ] );
+                } );
+            }
+            else if ( d.action === 'remove' ) {
+                // Remove items from the object
+                $.each( d.data, function (id) {
+                    delete basicProductData[ id ];
+                } );
+            }
+ 
+            // Store the latest `todo` object for next reload
+            //localStorage.setItem( 'todo', JSON.stringify(todo) );
+            // Show Editor what has changed
+            successCallback( output );
         }
 	} );
+
+	// Activate an inline edit on click of a table cell
+    $('#product_feature_view_basic').on( 'click', 'tbody td:not(:first-child)', function (e) {
+        basicProductEditor.inline( this, {
+            onBlur: 'submit'
+        } );
+    });
+}
+
+// Builds Product table for Yes No and N/A answers
+function buildBasicProductTable(product_id){
+    
+    $.post("php/table.product_feature_view_basic.php",{},function(data, status){
+        var json = JSON.parse(data);
+        for(var i=0;i< json.data.length; i++){
+            if(json.data[i].product_id == product_id){
+                basicProductData[json.data[i].DT_RowId] = json.data[i];
+            }
+        }
+
+        basicProductTable = $('#product_feature_view_basic').DataTable( {
+            dom: 'frtip',
+            data: $.map( basicProductData, function (value, key) {
+                return value;
+            } ),
+            columns: [
+                {
+                    "data": "product_id"
+                },
+                {
+                    "data": "category_title"
+                },
+                {
+                    "data": "feature_name"
+                },
+                {
+                    "data": "prod_feature_desc"
+                },
+                {
+                    "data": "prod_feature_notes"
+                }
+            ],
+            columnDefs: [
+                {
+                   "targets": [ 0 ],
+                   "visible": false
+                },
+                {  
+                  "targets": [ 1, 2 ],
+                  "width": '20%'
+                },
+                {
+                  "targets": [ 3 ],
+                  "width": '20%'
+                },
+                { 
+                    "className": "boldCol", "targets": [ 1, 2 ] 
+                }
+            ],
+            order: [[ 1, "asc" ]],
+            scrollY: "400px",
+            scrollCollapse: true,
+            paging: false,
+            info: false,
+            select: {
+                style:    'os',
+                selector: 'td:first-child'
+            }
+	   });
+    });
+    
+
 }
 
 // Builds product table for short answers
 function buildShortanswerProductTable(product_id){
+    $.post("php/table.product_feature_view_shortanswer.php",{},function(data, status){
+    var json = JSON.parse(data);
+    for(var i=0;i< json.data.length; i++){
+        if(json.data[i].product_id == product_id){
+            shortanswerProductData[json.data[i].DT_RowId] = json.data[i];
+        }
+    }     
+            
  	shortanswerProductTable = $('#product_feature_view_shortanswer').DataTable( {
 		dom: 'rtip',
-		ajax: {
-		    type : "POST",
-		    url : 'php/table.product_feature_view_shortanswer.php',
-		    dataSrc : function (json) {
-		      var return_data = new Array();
-		      for(var i=0;i< json.data.length; i++){
-		      		if(json.data[i].product_id == product_id){
-						return_data.push(json.data[i]);
-		      		}
-		      }
-		      return return_data;
-		    }
-		},
+        data: $.map( shortanswerProductData, function (value, key) {
+                return value;
+        }),
 		columns: [
 			{
 				"data": "product_id"
@@ -294,6 +372,8 @@ function buildShortanswerProductTable(product_id){
             selector: 'td:first-child'
         }
 	} );
+    
+    });
 }
 
 // Builds Company info table
@@ -373,4 +453,24 @@ function rebuildProductTables(product_id){
 	}
 	buildBasicProductTable(product_id);
 	buildShortanswerProductTable(product_id);
+}
+
+function savealldata(){
+    console.log(basicProductOutput);
+    console.log(shortanswerProductOutput);
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open( 'POST', 'php/table.product_feature_view_basic.php', true );
+    xhr.onreadystatechange = function(response) {
+        console.log(response);
+    };
+    xhr.send(basicProductOutput);
+    
+    var xhrx = new XMLHttpRequest();
+    xhrx.open( 'POST', 'php/table.product_feature_view_shortanswer.php', true );
+    xhrx.onreadystatechange = function(response) {
+        console.log(response);
+    };
+    xhrx.send(shortanswerProductOutput);
+
 }
